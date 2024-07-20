@@ -1,17 +1,10 @@
 const app = require('./app');
 const config = require('./app/config');
-var mysql = require('mysql');
+const db = require('./app/config/database');
 
 async function startServer() {
     try {
-        var con = mysql.createConnection({
-            host: config.db.host,
-            user: config.db.user,
-            password: config.db.password,
-            database: config.db.name
-        });
-        await con.connect();
-        console.log("Connected database!");
+        await db;
         const PORT = config.app.port;
         app.listen(PORT, () => { 
             console.log(`Server is running on port ${PORT}`);
