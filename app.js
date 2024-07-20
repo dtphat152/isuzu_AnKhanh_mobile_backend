@@ -3,14 +3,19 @@ const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const ApiError = require("./app/api-error");
 const vtpt_gc_router = require('./app/routes/vtpt_gc.route');
+const khachhang_router = require('./app/routes/khachhang.route');
 
 app.get('/',(req,res)=>{
     res.send('Hello isuzu');
 })
 app.use('/api/vtpt_gc', vtpt_gc_router);
-
+app.use('/api/khachhang',khachhang_router);
 
 // handle 404 response
 app.use((req, res, next) => {
@@ -23,7 +28,5 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.use(cors());
-app.use(express.json());
 
 module.exports = app;
